@@ -16,7 +16,7 @@ return new class extends Migration
     Schema::create('recipes', function (Blueprint $table) {
         $table->id();
         $table->string('title');
-        $table->string('author_name')->default('John Smith');
+        $table->string('author_name')->default('Lahcen Maskour');
         $table->text('description')->nullable();
         $table->string('image_url')->nullable();
         $table->integer('prep_time')->default(0);
