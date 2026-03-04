@@ -15,3 +15,5 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::put('/recipes/{recipe}', [RecipeController::class, 'update']);
     Route::delete('/recipes/{recipe}', [RecipeController::class, 'destroy']);
 });
+
+require __DIR__.'/auth.php';
