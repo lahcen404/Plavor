@@ -2,11 +2,13 @@ import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RecipeService } from '../../core/services/recipe/recipe.service';
 import { Recipe } from '../../core/models/recipe.model';
+import { RecipeCard } from '../../shared/components/recipe-card/recipe-card';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RecipeCard],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
@@ -18,14 +20,16 @@ export class HomeComponent implements OnInit {
   featuredRecipe = signal<Recipe | null>(null);
 
   //  categories
+
   categories = [
-    { name: 'Breakfast', icon: 'https://i.imgur.com/0X6Qbjd.png' },
-    { name: 'Vegan', icon: 'https://i.imgur.com/ZF6s192.png' },
-    { name: 'Meat', icon: 'https://i.imgur.com/Op6hU7T.png' },
-    { name: 'Dessert', icon: 'https://i.imgur.com/9X6a1yj.png' },
-    { name: 'Lunch', icon: 'https://i.imgur.com/3l4Mg9X.png' },
-    { name: 'Chocolate', icon: 'https://i.imgur.com/n1D3W0b.png' },
+    { name: 'Breakfast', icon: '/categories/breakfast.png' },
+    { name: 'Vegan', icon: '/categories/vegan.png' },
+    { name: 'Meat', icon: '/categories/meat.png' },
+    { name: 'Dessert', icon: '/categories/dessert.png' },
+    { name: 'Lunch', icon: '/categories/lunch.png' },
+    { name: 'Chocolate', icon: '/categories/chokolat.png' },
   ];
+
 
   ngOnInit(): void {
     // fetch data from recipe service

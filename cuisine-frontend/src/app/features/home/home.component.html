@@ -73,18 +73,10 @@
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div *ngFor="let recipe of recipes(); let i = index"
-           [ngClass]="{'bg-food-light': i < 3}"
-           class="relative rounded-3xl overflow-hidden shadow-md hover:shadow-lg transition">
-        <img [src]="recipe.image_url" alt="{{recipe.title}}" class="w-full h-48 object-cover" />
-        <div class="p-6">
-          <h3 class="font-semibold mb-2">{{recipe.title}}</h3>
-          <div class="flex gap-4 text-sm text-gray-600">
-            <span>⏱ {{recipe.prep_time + recipe.cook_time}} Minutes</span>
-            <span>🍴 {{recipe.category}}</span>
-          </div>
-        </div>
-      </div>
+      <app-recipe-card *ngFor="let recipe of recipes(); let i = index"
+                       [recipe]="recipe"
+                       [bgLight]="i < 3">
+      </app-recipe-card>
     </div>
   </section>
 
