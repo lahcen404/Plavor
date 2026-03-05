@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [],
-  templateUrl: './home.html',
-  styleUrl: './home.css',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './home.component.html',
 })
-export class Home {}
+export class HomeComponent  {
+}
