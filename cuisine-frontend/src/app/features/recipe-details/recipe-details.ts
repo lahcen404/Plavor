@@ -1,8 +1,10 @@
-import { Component, OnInit, signal, inject } from '@angular/core';
+import { Component, OnInit, signal, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../../core/services/recipe/recipe.service';
 import { Recipe } from '../../core/models/recipe.model';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-recipe-details',
@@ -11,10 +13,11 @@ import { Recipe } from '../../core/models/recipe.model';
   templateUrl: './recipe-details.html',
   styleUrl: './recipe-details.css',
 })
-export class RecipeDetails implements OnInit {
+export class RecipeDetails implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private recipeService = inject(RecipeService);
+  private destroy$ = new Subject<void>();
 
   recipe = signal<Recipe | null>(null);
   otherRecipes = signal<Recipe[]>([]);
@@ -22,10 +25,20 @@ export class RecipeDetails implements OnInit {
   error = signal<string | null>(null);
 
   ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
-    if (id) {
-      this.loadRecipe(+id);
-    }
+    // Subscribe to route parameter changes
+    this.route.params
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params) => {
+        const id = params['id'];
+        if (id) {
+          this.loadRecipe(+id);
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private loadRecipe(id: number): void {
