@@ -16,7 +16,6 @@ export class RecipeService {
     if (search) params = params.append('search', search);
     if (category) params = params.append('category', category);
 
-    console.log('📡 RecipeService.getRecipes', { search, category, url: this.apiUrl, params: params.toString() });
     return this.http.get<Recipe[]>(this.apiUrl, { params });
   }
 
@@ -25,23 +24,52 @@ export class RecipeService {
     return this.http.get<Recipe>(`${this.apiUrl}/${id}`);
   }
 
-  // create new recipe
-  createRecipe(recipe: Recipe): Observable<Recipe> {
-    console.log('📡 RecipeService.createRecipe', { url: this.apiUrl, body: recipe });
+  // create new recipe with optional image upload
+  createRecipe(recipe: Recipe, image?: File): Observable<Recipe> {
+    if (image) {
+      const formData = this.createFormData(recipe, image);
+      return this.http.post<Recipe>(this.apiUrl, formData);
+    }
     return this.http.post<Recipe>(this.apiUrl, recipe);
   }
 
-  // update existing recipee
-  updateRecipe(id: number, recipe: Recipe): Observable<Recipe> {
+  // update existing recipe with optional image upload
+  updateRecipe(id: number, recipe: Recipe, image?: File): Observable<Recipe> {
     const url = `${this.apiUrl}/${id}`;
-    console.log('📡 RecipeService.updateRecipe', { url, body: recipe });
+    if (image) {
+      const formData = this.createFormData(recipe, image);
+      formData.append('_method', 'PUT');
+      return this.http.post<Recipe>(url, formData);
+    }
     return this.http.put<Recipe>(url, recipe);
+  }
+
+  // create FormData from recipe and image
+  private createFormData(recipe: Recipe, image: File): FormData {
+    const formData = new FormData();
+    formData.append('title', recipe.title);
+    formData.append('category', recipe.category);
+    formData.append('description', recipe.description);
+    formData.append('prep_time', recipe.prep_time.toString());
+    formData.append('cook_time', recipe.cook_time.toString());
+    formData.append('calories', recipe.calories.toString());
+    formData.append('is_healthy', recipe.is_healthy ? '1' : '0');
+    if (recipe.author_name) {
+      formData.append('author_name', recipe.author_name);
+    }
+    if (recipe.image_url) {
+      formData.append('image_url', recipe.image_url);
+    }
+    if (recipe.ingredients) {
+      formData.append('ingredients', JSON.stringify(recipe.ingredients));
+    }
+    formData.append('image', image);
+    return formData;
   }
 
   // delete recipe
   deleteRecipe(id: number): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
-    console.log('📡 RecipeService.deleteRecipe', { url });
     return this.http.delete<void>(url);
   }
 }
