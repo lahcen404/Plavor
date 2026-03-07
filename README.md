@@ -106,6 +106,7 @@ Run inside backend container:
 docker compose exec cuisine-backend composer install
 docker compose exec cuisine-backend php artisan key:generate
 docker compose exec cuisine-backend php artisan migrate:refresh --seed
+
 ```
 
 The seeder populates the database with demo recipes.
@@ -168,6 +169,41 @@ This demonstrates structured API testing and professional backend validation wor
 * Containerized deployment
 * Frontend–Backend integration
 * Professional testing workflow (Postman)
+
+---
+
+# 🧪 Testing the Application
+
+## Default Admin Credentials
+
+To access the admin dashboard, use these credentials:
+
+```
+Email: lahcen.maskour2003@gmail.com
+Password: lahcen123
+```
+
+## Test Scenarios
+
+| Feature | How to Test |
+|---------|-------------|
+| **View Recipes** | Navigate to `http://localhost:4201` (guest access allowed) |
+| **Search Recipes** | Use the search bar on home page (debounced, 300ms) |
+| **Filter by Category** | Click on category cards (Breakfast, Meat, etc.) |
+| **View Recipe Details** | Click on any recipe card |
+| **Admin Login** | Go to `/login`, use admin credentials above |
+| **Add Recipe** | In admin dashboard, click "Add New Recipe", fill form with image upload |
+| **Edit Recipe** | Click "Edit" button on any recipe in admin table |
+| **Delete Recipe** | Click "Delete" button on any recipe in admin table |
+| **Image Upload** | When adding/editing, use the file upload area or provide URL |
+
+## Access URLs
+
+| Service | URL |
+|---------|-----|
+| Frontend (Angular) | `http://localhost:4201` |
+| Backend API | `http://localhost:8080` |
+| pgAdmin | `http://localhost:5051` |
 
 ---
 
