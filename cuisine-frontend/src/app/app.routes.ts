@@ -4,6 +4,8 @@ import { HomeComponent } from './features/home/home';
 import { AdminDashboard } from './features/admin-dashboard/admin-dashboard';
 import { LoginComponent } from './features/auth/login/login';
 import { RegisterComponent } from './features/auth/register/register';
+import { BlogComponent } from './features/blog/blog';
+import { BlogDetailComponent } from './features/blog/blog-detail';
 import { AdminGuard, PublicGuard } from './core/guards/auth.guard';
 
 
@@ -14,6 +16,10 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
 
   { path: 'recipe/:id', component: RecipeDetails },
+
+  { path: 'blog', component: BlogComponent },
+
+  { path: 'blog/:id', component: BlogDetailComponent },
 
   { path: 'admin', component: AdminDashboard, canActivate: [AdminGuard] },
 

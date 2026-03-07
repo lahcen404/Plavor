@@ -7,9 +7,10 @@
 
     <!-- Navigation -->
     <nav class="hidden md:flex items-center gap-8">
-      @if (authService.isAuthenticated()) {
-        <a routerLink="/home" routerLinkActive="text-food-orange" class="text-gray-700 hover:text-food-orange transition font-semibold">Home</a>
+      <a routerLink="/home" routerLinkActive="text-food-orange" class="text-gray-700 hover:text-food-orange transition font-semibold">Home</a>
+      <a routerLink="/blog" routerLinkActive="text-food-orange" class="text-gray-700 hover:text-food-orange transition font-semibold">Blog</a>
 
+      @if (authService.isAuthenticated()) {
         @if (authService.userRole() === 'admin') {
           <a routerLink="/admin" routerLinkActive="text-food-orange" class="text-gray-700 hover:text-food-orange transition font-semibold">Admin</a>
         }
@@ -43,9 +44,10 @@
     @if (isMenuOpen) {
       <div class="absolute top-24 left-0 right-0 bg-white shadow-lg md:hidden">
         <nav class="flex flex-col gap-4 p-6">
-          @if (authService.isAuthenticated()) {
-            <a routerLink="/home" (click)="isMenuOpen = false" class="text-gray-700 hover:text-food-orange transition font-semibold">Home</a>
+          <a routerLink="/home" (click)="isMenuOpen = false" class="text-gray-700 hover:text-food-orange transition font-semibold">Home</a>
+          <a routerLink="/blog" (click)="isMenuOpen = false" class="text-gray-700 hover:text-food-orange transition font-semibold">Blog</a>
 
+          @if (authService.isAuthenticated()) {
             @if (authService.userRole() === 'admin') {
               <a routerLink="/admin" (click)="isMenuOpen = false" class="text-gray-700 hover:text-food-orange transition font-semibold">Admin</a>
             }
